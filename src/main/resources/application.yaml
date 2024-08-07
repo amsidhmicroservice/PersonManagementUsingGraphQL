@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: PersonManagementUsingGraphQL
+
+  datasource:
+    url: jdbc:h2:mem:persondb
+    username: sa
+    password: sa
+    driverClassName: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  jpa:
+    databasePlatform: org.hibernate.dialect.H2Dialect
+    showSql: true
+    hibernate:
+      ddlAuto: update
+  sql:
+    init:
+      mode: always # Ensure SQL scripts are always executed
+      dataLocations: classpath:data.sql      # Optional: to specify data initialization
+      continueOnError: false
+
