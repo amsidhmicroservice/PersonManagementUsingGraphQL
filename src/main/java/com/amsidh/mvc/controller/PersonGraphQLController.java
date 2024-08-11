@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @Controller
-public class PersonController {
+public class PersonGraphQLController {
 
     private final PersonService personService;
 

@@ -24,6 +24,11 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public PersonResponseModel savePerson(PersonRequestModel personRequestModel) {
         final PersonEntity personEntity = PersonMapper.INSTANCE.toPersonEntity(personRequestModel);
+        // Ensure that AddressEntity's personEntity is set
+        if (personEntity.getAddressEntity() != null) {
+            personEntity.getAddressEntity().setPersonEntity(personEntity);
+        }
+
         final PersonEntity savedPersonEntity = personEntityRepository.save(personEntity);
         final PersonResponseModel personResponseModel = PersonMapper.INSTANCE.toPersonResponseModel(savedPersonEntity);
         log.info("Saved Person {}", personResponseModel);
@@ -32,7 +37,9 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonResponseModel findPersonByPersonId(Long personId) {
-        final PersonEntity personEntity = personEntityRepository.findById(personId).orElseThrow(() -> new PersonNotFoundException(String.format("Person with personId %d not found", personId)));
+        final PersonEntity personEntity = personEntityRepository.findById(personId)
+                .orElseThrow(() -> new PersonNotFoundException(String
+                        .format("Person with personId %d not found", personId)));
         final PersonResponseModel personResponseModel = PersonMapper.INSTANCE.toPersonResponseModel(personEntity);
         log.info("Person found {}", personResponseModel);
         return personResponseModel;

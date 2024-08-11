@@ -21,7 +21,7 @@ public class PersonEntity implements Serializable {
     private String name;
     private Integer age;
 
-    @OneToOne(mappedBy = "personEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "personEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private AddressEntity addressEntity;
 
 
