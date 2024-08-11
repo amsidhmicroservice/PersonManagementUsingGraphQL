@@ -18,11 +18,11 @@ public class PersonEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long personId;
-
     private String name;
     private Integer age;
-    private String city;
-    private String street;
-    private String state;
-    private Long pinCode;
+
+    @OneToOne(mappedBy = "personEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private AddressEntity addressEntity;
+
+
 }

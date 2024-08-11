@@ -10,8 +10,9 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @ToString
 @Builder
-public class PersonRequestModel implements Serializable {
-    private String name;
-    private Integer age;
-    private AddressRequestModel addressRequestModel;
+public class AddressRequestModel implements Serializable {
+    private String city;
+    private String street;
+    private String state;
+    private Long pinCode;
 }

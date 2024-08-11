@@ -1,15 +1,14 @@
 package com.amsidh.mvc;
 
+import com.amsidh.mvc.model.AddressRequestModel;
 import com.amsidh.mvc.model.PersonRequestModel;
+import com.amsidh.mvc.model.PersonResponseModel;
 import com.amsidh.mvc.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.Arrays;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -23,46 +22,21 @@ public class PersonManagementUsingGraphQlApplication implements CommandLineRunne
     }
 
     @Override
-    public void run(String... args) throws Exception {
-        log.info("Loading initial to database");
-        getPersonData().forEach(personService::savePerson);
+    public void run(String... args) {
+        AddressRequestModel pune = AddressRequestModel.builder().city("Pune").street("D Y Patil").state("MH").pinCode(412105L).build();
+        AddressRequestModel bijapur = AddressRequestModel.builder().city("Shirnal").street("Kannur Road").state("KA").pinCode(586119L).build();
 
-    }
+        PersonRequestModel amisdh = PersonRequestModel.builder().name("Amsidh").age(42).addressRequestModel(pune).build();
 
-    private static List<PersonRequestModel> getPersonData() {
-        return Arrays.asList(
-                PersonRequestModel.builder()
-                        .name("Amsidh")
-                        .age(40)
-                        .city("Pune")
-                        .street("D Y Patil Road")
-                        .state("MH")
-                        .pinCode(412105L)
-                        .build(),
-                PersonRequestModel.builder()
-                        .name("Aditya")
-                        .age(10)
-                        .city("Pune")
-                        .street("Pride World City")
-                        .state("MH")
-                        .pinCode(412105L)
-                        .build(),
-                PersonRequestModel.builder()
-                        .name("Anjali")
-                        .age(37)
-                        .city("Pune")
-                        .street("Charholi BK")
-                        .state("MH")
-                        .pinCode(412105L)
-                        .build(),
-                PersonRequestModel.builder()
-                        .name("Adithi")
-                        .age(14)
-                        .city("Pune")
-                        .street("Long Island")
-                        .state("MH")
-                        .pinCode(412105L)
-                        .build()
-        );
+        PersonRequestModel anjali = PersonRequestModel.builder().name("Anjali").age(38).addressRequestModel(bijapur).build();
+
+
+        final PersonResponseModel personResponseModel = personService.savePerson(amisdh);
+        log.info("Person Response Model {}", personResponseModel);
+
+        final PersonResponseModel personResponseModel1 = personService.savePerson(anjali);
+        log.info("Person Response Model1 {}", personResponseModel1);
+
+
     }
 }

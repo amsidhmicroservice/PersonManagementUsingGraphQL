@@ -43,10 +43,10 @@ public class PersonServiceImpl implements PersonService {
         final PersonEntity personEntity = personEntityRepository.findById(personId).orElseThrow(() -> new PersonNotFoundException(String.format("Person with personId %d not found", personId)));
         Optional.ofNullable(personRequestModel.getName()).ifPresent(personEntity::setName);
         Optional.ofNullable(personRequestModel.getAge()).ifPresent(personEntity::setAge);
-        Optional.ofNullable(personRequestModel.getCity()).ifPresent(personEntity::setCity);
-        Optional.ofNullable(personRequestModel.getStreet()).ifPresent(personEntity::setStreet);
-        Optional.ofNullable(personRequestModel.getState()).ifPresent(personEntity::setState);
-        Optional.ofNullable(personRequestModel.getPinCode()).ifPresent(personEntity::setPinCode);
+        Optional.ofNullable(personRequestModel.getAddressRequestModel().getCity()).ifPresent(city -> personEntity.getAddressEntity().setCity(city));
+        Optional.ofNullable(personRequestModel.getAddressRequestModel().getStreet()).ifPresent(street -> personEntity.getAddressEntity().setStreet(street));
+        Optional.ofNullable(personRequestModel.getAddressRequestModel().getState()).ifPresent(state -> personEntity.getAddressEntity().setState(state));
+        Optional.ofNullable(personRequestModel.getAddressRequestModel().getPinCode()).ifPresent(pincode -> personEntity.getAddressEntity().setPinCode(pincode));
         final PersonEntity updatedPersonEntity = personEntityRepository.saveAndFlush(personEntity);
         final PersonResponseModel personResponseModel = PersonMapper.INSTANCE.toPersonResponseModel(updatedPersonEntity);
         log.info("Person updated {}", personResponseModel);

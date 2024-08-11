@@ -1,23 +1,29 @@
 input PersonRequestModel {
     name: String!
     age: Int!
+    addressRequestModel: AddressRequestModel
+}
+input AddressRequestModel {
     city: String!
     street: String!
     state: String!
     pinCode: Int!
 }
 
-
 type PersonResponseModel {
     personId: Int
     name: String
     age: Int
+    addressResponseModel: AddressResponseModel
+}
+
+type AddressResponseModel {
+    addressId: Int
     city: String
     street: String
     state: String
     pinCode: Int
 }
-
 
 type Query {
     getAllPersons:[PersonResponseModel]

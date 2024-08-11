@@ -16,10 +16,14 @@ public interface PersonMapper {
 
     @Mapping(target = "personId", ignore = true)
         // Ignoring the ID as it's auto-generated
+    @Mapping(target = "addressEntity", source = "addressRequestModel")
     PersonEntity toPersonEntity(PersonRequestModel personRequestModel);
 
+    @Mapping(target = "addressRequestModel", source = "addressEntity")
     PersonRequestModel toPersonRequestModel(PersonEntity personEntity);
 
+
+    @Mapping(target = "addressResponseModel", source = "addressEntity")
     PersonResponseModel toPersonResponseModel(PersonEntity personEntity);
 
     List<PersonResponseModel> toPersonResponseModelList(List<PersonEntity> personEntities);
