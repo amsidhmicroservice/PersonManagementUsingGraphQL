@@ -1,0 +1,4 @@
+type Query {
+    getAllPersons:[PersonResponseModel]
+    findByPersonId(personId: Int): PersonResponseModel
+}

@@ -1,0 +1,5 @@
+type Mutation {
+    createPerson(personRequestModel: PersonRequestModel): PersonResponseModel
+    updatePerson(personId: Int! ,personRequestModel: PersonRequestModel): PersonResponseModel
+    deletePerson(personId: Int!): String
+}

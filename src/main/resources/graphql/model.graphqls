@@ -1,7 +1,7 @@
 input PersonRequestModel {
     name: String!
     age: Int!
-    addressRequestModel: AddressRequestModel
+    addressRequestModel: AddressRequestModel!
 }
 input AddressRequestModel {
     city: String!
@@ -23,15 +23,4 @@ type AddressResponseModel {
     street: String
     state: String
     pinCode: Int
-}
-
-type Query {
-    getAllPersons:[PersonResponseModel]
-    findByPersonId(personId: Int): PersonResponseModel
-}
-
-type Mutation {
-    createPerson(personRequestModel: PersonRequestModel): PersonResponseModel
-    updatePerson(personId: Int! ,personRequestModel: PersonRequestModel): PersonResponseModel
-    deletePerson(personId: Int!): String
 }

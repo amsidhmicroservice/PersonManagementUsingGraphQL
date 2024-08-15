@@ -1,8 +1,5 @@
 package com.amsidh.mvc;
 
-import com.amsidh.mvc.model.AddressRequestModel;
-import com.amsidh.mvc.model.PersonRequestModel;
-import com.amsidh.mvc.model.PersonResponseModel;
 import com.amsidh.mvc.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +20,8 @@ public class PersonManagementUsingGraphQlApplication implements CommandLineRunne
 
     @Override
     public void run(String... args) {
-        AddressRequestModel pune = AddressRequestModel.builder().city("Pune").street("D Y Patil").state("MH").pinCode(412105L).build();
+
+       /* AddressRequestModel pune = AddressRequestModel.builder().city("Pune").street("D Y Patil").state("MH").pinCode(412105L).build();
         AddressRequestModel bijapur = AddressRequestModel.builder().city("Shirnal").street("Kannur Road").state("KA").pinCode(586119L).build();
 
         PersonRequestModel amisdh = PersonRequestModel.builder().name("Amsidh").age(42).addressRequestModel(pune).build();
@@ -35,8 +33,7 @@ public class PersonManagementUsingGraphQlApplication implements CommandLineRunne
         log.info("Person Response Model {}", personResponseModel);
 
         final PersonResponseModel personResponseModel1 = personService.savePerson(anjali);
-        log.info("Person Response Model1 {}", personResponseModel1);
-
-
+        log.info("Person Response Model1 {}", personResponseModel1);*/
+        personService.allPersons().forEach(personResponseModel -> log.info("Person Response Model {}", personResponseModel));
     }
 }

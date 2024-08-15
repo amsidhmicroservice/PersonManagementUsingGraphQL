@@ -24,14 +24,31 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public PersonResponseModel savePerson(PersonRequestModel personRequestModel) {
         final PersonEntity personEntity = PersonMapper.INSTANCE.toPersonEntity(personRequestModel);
+
         // Ensure that AddressEntity's personEntity is set
         if (personEntity.getAddressEntity() != null) {
             personEntity.getAddressEntity().setPersonEntity(personEntity);
+            log.info("AddressEntity before save - city: {}, street: {}, state: {}, pinCode: {}",
+                    personEntity.getAddressEntity().getCity(),
+                    personEntity.getAddressEntity().getStreet(),
+                    personEntity.getAddressEntity().getState(),
+                    personEntity.getAddressEntity().getPinCode());
         }
 
         final PersonEntity savedPersonEntity = personEntityRepository.save(personEntity);
+        log.info("Saved PersonEntity with ID: {}", savedPersonEntity.getPersonId());
+        if (savedPersonEntity.getAddressEntity() != null) {
+            log.info("Saved AddressEntity with ID: {}, city: {}, street: {}, state: {}, pinCode: {}",
+                    savedPersonEntity.getAddressEntity().getAddressId(),
+                    savedPersonEntity.getAddressEntity().getCity(),
+                    savedPersonEntity.getAddressEntity().getStreet(),
+                    savedPersonEntity.getAddressEntity().getState(),
+                    savedPersonEntity.getAddressEntity().getPinCode());
+        }
+
         final PersonResponseModel personResponseModel = PersonMapper.INSTANCE.toPersonResponseModel(savedPersonEntity);
         log.info("Saved Person {}", personResponseModel);
+
         return personResponseModel;
     }
 
@@ -48,8 +65,8 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public PersonResponseModel updatePerson(Long personId, PersonRequestModel personRequestModel) {
         final PersonEntity personEntity = personEntityRepository.findById(personId).orElseThrow(() -> new PersonNotFoundException(String.format("Person with personId %d not found", personId)));
-        Optional.ofNullable(personRequestModel.getName()).ifPresent(personEntity::setName);
-        Optional.ofNullable(personRequestModel.getAge()).ifPresent(personEntity::setAge);
+        Optional.ofNullable(personRequestModel.getName()).ifPresent(personEntity::setFirstName);
+        Optional.ofNullable(personRequestModel.getName()).ifPresent(personEntity::setLastName);
         Optional.ofNullable(personRequestModel.getAddressRequestModel().getCity()).ifPresent(city -> personEntity.getAddressEntity().setCity(city));
         Optional.ofNullable(personRequestModel.getAddressRequestModel().getStreet()).ifPresent(street -> personEntity.getAddressEntity().setStreet(street));
         Optional.ofNullable(personRequestModel.getAddressRequestModel().getState()).ifPresent(state -> personEntity.getAddressEntity().setState(state));
