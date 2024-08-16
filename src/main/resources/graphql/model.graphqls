@@ -1,6 +1,7 @@
 input PersonRequestModel {
-    name: String!
-    age: Int!
+    firstName: String!
+    lastName: String!
+    email: String!
     addressRequestModel: AddressRequestModel!
 }
 input AddressRequestModel {
@@ -12,8 +13,9 @@ input AddressRequestModel {
 
 type PersonResponseModel {
     personId: Int
-    name: String
-    age: Int
+    firstName: String
+    lastName: String
+    email: String
     addressResponseModel: AddressResponseModel
 }
 

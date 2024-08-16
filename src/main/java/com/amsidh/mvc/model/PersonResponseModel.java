@@ -12,7 +12,8 @@ import java.io.Serializable;
 @Builder
 public class PersonResponseModel implements Serializable {
     private Long personId;
-    private String name;
-    private Integer age;
+    private String firstName;
+    private String lastName;
+    private String email;
     private AddressResponseModel addressResponseModel;
 }

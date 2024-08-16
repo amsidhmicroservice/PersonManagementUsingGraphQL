@@ -11,7 +11,8 @@ import java.io.Serializable;
 @ToString
 @Builder
 public class PersonRequestModel implements Serializable {
-    private String name;
-    private Integer age;
+    private String firstName;
+    private String lastName;
+    private String email;
     private AddressRequestModel addressRequestModel;
 }
